@@ -1,0 +1,194 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > BMIController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ie.setu.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: BMIController (ie.setu.controllers)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BMIController</td>
+<td class="coverageStat">
+  <span class="percent">
+    12.5%
+  </span>
+  <span class="absValue">
+    (1/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    5.9%
+  </span>
+  <span class="absValue">
+    (1/17)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BMIController$addBMI$$inlined$jsonToObject$1</td>
+  </tr>
+  <tr>
+    <td class="name">BMIController$getBMIsById$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">BMIController$updateBmi$$inlined$jsonToObject$1</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    11.1%
+  </span>
+  <span class="absValue">
+    (1/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    5.6%
+  </span>
+  <span class="absValue">
+    (1/18)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ie.setu.controllers
+&nbsp;
+&nbsp;
+&nbsp;import ie.setu.domain.BMI
+&nbsp;import ie.setu.domain.repository.BMIDAO
+&nbsp;import ie.setu.utils.jsonToObject
+&nbsp;import io.javalin.http.Context
+&nbsp;
+&nbsp;object BMIController {
+<b class="fc">&nbsp;    private val BMIDao = BMIDAO()</b>
+&nbsp;
+&nbsp;
+&nbsp;    fun getAllBMIs(ctx: Context) {
+<b class="nc">&nbsp;        ctx.json(BMIDao.getAll())</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getBMIsByUserId(ctx: Context) {
+<b class="nc">&nbsp;        if (BMIDao.findByUserId(ctx.pathParam(&quot;user-id&quot;).toInt()) != null) {</b>
+<b class="nc">&nbsp;            val BMIs = BMIDao.findByUserId(ctx.pathParam(&quot;user-id&quot;).toInt())</b>
+<b class="nc">&nbsp;            if (BMIs.isNotEmpty()) {</b>
+<b class="nc">&nbsp;                ctx.json(BMIs)</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    fun getBMIsById(ctx: Context) {
+<b class="nc">&nbsp;        val bmi = BMIDao.findById(ctx.pathParam(&quot;bmi-id&quot;).toInt())</b>
+<b class="nc">&nbsp;        if (bmi != null) {</b>
+<b class="nc">&nbsp;            ctx.json(bmi)</b>
+&nbsp;
+&nbsp;        }else{
+<b class="nc">&nbsp;            ctx.json({&quot;No BMI found&quot;})</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    fun addBMI(ctx: Context) {
+&nbsp;
+<b class="nc">&nbsp;        val bmi : BMI = jsonToObject(ctx.body())</b>
+<b class="nc">&nbsp;        BMIDao.save(bmi)</b>
+<b class="nc">&nbsp;        ctx.json(bmi)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun deleteAllBmisByUser(ctx: Context){
+<b class="nc">&nbsp;        BMIDao.deleteAllByUserId(ctx.pathParam(&quot;user-id&quot;).toInt())</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun deleteBMIById(ctx: Context){
+<b class="nc">&nbsp;        BMIDao.delete(ctx.pathParam(&quot;bmi-id&quot;).toInt())</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun updateBmi(ctx: Context){
+&nbsp;
+<b class="nc">&nbsp;        val bmi : BMI = jsonToObject(ctx.body())</b>
+<b class="nc">&nbsp;        BMIDao.update(ctx.pathParam(&quot;bmi-id&quot;).toInt(),bmi)</b>
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-04 19:07</div>
+</div>
+</body>
+</html>

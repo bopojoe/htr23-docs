@@ -1,0 +1,295 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Health Tracker API
+  description: This API provides endpoints for handling CRUD operations on the Health Tracker data.
+  contact:
+    name: James O'Rourke
+    email: 20074556@mail.wit.ie
+paths:
+  /api/users/{user-id}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: This is a specifc user in the app
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: Remove a specifc user in the app
+    patch:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: Update a specifc user in the app
+  /api/users:
+    post:
+      description: Add a user to the app
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+         200:
+           description: The user has been created
+    get:
+      responses:
+        200:
+          description: This is a list of the users in the app
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /api/users/email/{email}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/EmailPath'
+      responses:
+        200:
+          description: This is a specifc user in the app
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+                
+  /api/users/{user-id}/activities:
+    get:
+        parameters:
+          - $ref: '#/components/parameters/UserIdPath'
+        responses:
+          200:
+            description: This is a list of the Activities from this User in the app
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Activity'
+  /api/users/{user-id}/bmis:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      responses:
+        200:
+          description: This is a list of the bmi's from a user in the app
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BMI'
+  /api/activities:
+    get:
+      description: Get all Activities from the Database
+      responses:
+        200:
+          description: This is a list of the Activities in the Database
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+    post:
+      description: Add an Activity to the Database
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activity'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: { }
+  /api/activities/{activity-id}:
+    get:
+      parameters:
+        - $ref: '#/components/parameters/ActivityIdPath'
+      responses:
+        200:
+          description: This is a specifc activity in the app
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+    delete:
+      description: Remove an Activity from the App
+      parameters:
+        - $ref: '#/components/parameters/ActivityIdPath'
+      responses:
+        200:
+          description: Remove a specifc Activity in the app
+    patch:
+          parameters:
+            - $ref: "#/components/parameters/ActivityIdPath"
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Activity'
+          responses:
+            200:
+              description: Update a specifc Activity in the app
+
+# delete("/api/users/:user-id/activities)
+# get("/api/activities/:activity-id")
+# delete("/api/activities/:activity-id")
+# patch("/api/activities/:activity-id")
+
+  /api/bmis:
+      get:
+        description: Get all BMIS from the Database
+        responses:
+          200:
+            description: This is a list of the BMIS in the Database
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BMI'
+      post:
+        description: Add an BMI to the Database
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BMI'
+        responses:
+          '200':
+            description: Successful response
+            content:
+              application/json: { }
+  /api/bmis/{bmi-id}:
+      get:
+        parameters:
+          - $ref: '#/components/parameters/BMIIdPath'
+        responses:
+          200:
+            description: This is a specifc BMI in the app
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BMI'
+      delete:
+        description: Remove an BMI from the App
+        parameters:
+          - $ref: '#/components/parameters/BMIIdPath'
+        responses:
+          200:
+            description: Remove a specifc BMI in the app
+      patch:
+        parameters:
+          - $ref: "#/components/parameters/BMIIdPath"
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BMI'
+        responses:
+          200:
+            description: Update a specifc BMI in the app
+    
+components:
+  parameters:
+    UserIdPath:
+      in: path
+      name: user-id
+      description: User id path parameter
+      required: true
+      schema:
+        type: integer
+        example: 3232
+    EmailPath:
+      in: path
+      name: email
+      description: Email path parameter
+      required: true
+      schema:
+        type: string
+        example: joe@soap.com
+    ActivityIdPath:
+      in: path
+      name: activity-id
+      description: activity id path parameter
+      required: true
+      schema:
+        type: integer
+        example: 4
+    BMIIdPath:
+      in: path
+      name: bmi-id
+      description: bmi id path parameter
+      required: true
+      schema:
+        type: integer
+        example: 4
+  schemas:
+    User:
+      type: object
+      properties:
+        id: 
+          type: integer
+          example: 3232
+        name:
+          type: string
+          example: Joe Soap
+        email:
+          type: string
+          example: joe@soap.com
+    Activity:
+      type: object
+      properties:
+        id: 
+          type: integer
+          example: 3232
+        description:
+          type: string
+          example: speed hurdles
+        duration:
+          type: number
+          example: 30.1
+        started:
+          type: string
+          example: "2020-06-10T05:59:27.258Z"
+        calories:
+          type: integer
+          example: 180
+        userId:
+          type: integer
+          example: 3232
+    BMI:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3232
+        age:
+          type: integer
+          example: 30
+        height:
+          type: number
+          example: 183.5
+        weight:
+          type: number
+          example: 85.5
+        userId:
+          type: integer
+          example: 3232
