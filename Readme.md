@@ -8,6 +8,7 @@
 - [Authentication](#authentication)
 - [Entities](#entities)
 - [Usage](#usage)
+- [swagger](../swagger/htr23-activity.yaml)
 
 
 ## API Endpoints
