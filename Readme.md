@@ -2,6 +2,16 @@
 
 **htr23** is a simple Kotlin API that allows you to perform CRUD (Create, Read, Update, Delete) operations on Users, Activities, and BMI records. It provides endpoints for managing these entities. This README provides an overview of the API and how to use it.
 
+## Swagger Documentation
+- [Swagger API Docs](https://bopojoe.github.io/htr23-docs/swagger/)
+
+Link to Swagger documentation can be found above
+
+## Coverage Documentation
+- [Full Coverage Report](https://bopojoe.github.io/htr23-docs/htmlReport/)
+
+Link to coverage report can be found
+
 ## Table of Contents
 
 - [API Endpoints](#api-endpoints)
